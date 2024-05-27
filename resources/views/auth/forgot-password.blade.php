@@ -1,24 +1,26 @@
 <x-guest-layout>
     <div class="mb-4 text-sm text-gray-600 dark:text-gray-400">
-        {{ __('Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.') }}
+        {{ __('This is a secure area of the application. Please confirm your password before continuing.') }}
     </div>
 
-    <!-- Session Status -->
-    <x-auth-session-status class="mb-4" :status="session('status')" />
-
-    <form method="POST" action="{{ route('password.email') }}">
+    <form method="POST" action="{{ route('password.confirm') }}" class="row g-3 needs-validation">
         @csrf
 
-        <!-- Email Address -->
-        <div>
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+        <!-- Password -->
+        <div class="col-12">
+            <x-input-label for="password" :value="__('Password')" class="form-label"/>
+
+            <x-text-input id="password" class="form-control"
+                            type="password"
+                            name="password"
+                            required autocomplete="current-password" />
+
+            <x-input-error :messages="$errors->get('password')" class="invalid-feedback" />
         </div>
 
-        <div class="flex items-center justify-end mt-4">
-            <x-primary-button>
-                {{ __('Email Password Reset Link') }}
+        <div class="flex justify-end mt-4">
+            <x-primary-button class="btn btn-primary w-100">
+                {{ __('Confirm') }}
             </x-primary-button>
         </div>
     </form>
